@@ -2,8 +2,6 @@ package com.cognizant.chef.service;
 
 import com.cognizant.chef.model.Ingredient;
 import com.cognizant.chef.repository.IngredientRepository;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -25,17 +23,6 @@ public class IngredientServiceTest {
     @InjectMocks
     private IngredientService service;
 
-    @Before
-    public void before() {
- //       this.service = new IngredientService();
-        this.service.deleteAll();
-    }
-
-    @After
-    public void after() {
-        this.service.deleteAll();
-    }
-
     @Test
     public void loginShouldReturnTrueIfSucessfull() {
         boolean result = this.service.login();
@@ -51,13 +38,20 @@ public class IngredientServiceTest {
     }
 
     @Test
-    public void deleteShouldReturnIngredientDeleted() {
-        Ingredient ingredient = new Ingredient("hot sauce");
-        when(this.repository.save(any(Ingredient.class))).thenReturn(ingredient);
-        Ingredient ingredientSaved = this.service.save(ingredient);
-        Ingredient result = this.service.delete(ingredientSaved);
-        assertEquals(ingredientSaved, result);
+    public void deleteShouldReturnTrueWhenExists() {
+        Ingredient ingredient = new Ingredient(333L,"hot sauce");
+        when(this.repository.existsById(ingredient.getId())).thenReturn(true);
+        boolean result = this.service.delete(ingredient);
+        assertEquals(true, result);
     }
+
+//    @Test
+//    public void deleteShouldReturnFalseWhenNotExists() {
+//        Ingredient ingredient = new Ingredient(333L,"hot sauce");
+//        when(this.repository.existsById(-1L)).thenReturn(false);
+//        boolean result = this.service.delete(ingredient);
+//        assertEquals(false, result);
+//    }
 
     @Test
     public void  saveOfExistingIngredientShouldReturnIngredientSaved() {
@@ -68,6 +62,14 @@ public class IngredientServiceTest {
         when(this.repository.save(any(Ingredient.class))).thenReturn(ingredientSaved);
         Ingredient result = this.service.save(ingredientSaved);
         assertEquals(ingredientSaved, result);
+    }
+
+    @Test
+    public void  findByIdShouldReturnIngredientWhenExists() {
+        Ingredient ingredient = new Ingredient(22L,"hot sauce");
+        when(this.repository.findById(ingredient.getId())).thenReturn(java.util.Optional.of(ingredient));
+        Ingredient result = this.service.findById(ingredient.getId());
+        assertEquals(ingredient, result);
     }
 
     @Test

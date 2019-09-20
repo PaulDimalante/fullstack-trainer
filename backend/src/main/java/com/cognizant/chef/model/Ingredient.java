@@ -14,6 +14,15 @@ public class Ingredient {
 
     private String name;
 
+    public Ingredient() {}
+    public Ingredient(String name) {
+        this.name = name;
+    }
+    public Ingredient(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,10 +42,6 @@ public class Ingredient {
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
-
-    public Ingredient(String name) {
         this.name = name;
     }
 
