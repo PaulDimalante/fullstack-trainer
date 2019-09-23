@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { IngredientService } from './ingredient.service';
-import { Ingredient } from './ingredient';
+import { Ingredient } from '../models/ingredient';
 import {
   HttpTestingController,
   HttpClientTestingModule
