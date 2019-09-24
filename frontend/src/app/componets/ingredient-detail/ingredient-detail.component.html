@@ -4,8 +4,8 @@
         <span id="id">{{ingredient.id}}</span>
     </p>
     <p>
-        <span>name:</span>
-        <span id="name">{{ingredient.name}}</span>
+        name: <input type="text" id="name" [(ngModel)]="ingredient.name" (ngModelChange)="ingredient.name = $event">
     </p>
-<!-- <input type="text" [formControl]="ingredientFormControl"> -->
+    <button id="save" (click)="save(ingredient)" >Save</button>
+    <button id="delete" (click)="delete(ingredient)" >Delete</button>
 </div>  

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Ingredient } from '../models/ingredient';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,7 +12,6 @@ export class IngredientService {
   constructor(private httpClient: HttpClient) { }
 
   findById(id: number): Observable<Ingredient> {
-    debugger;
     return this.httpClient.get<Ingredient>(environment.ingredientsURL + '/findById/' + id);
   }
 
@@ -22,6 +21,11 @@ export class IngredientService {
 
   save(ingredient: Ingredient): Observable<any> {
     return this.httpClient.post(environment.ingredientsURL + '/save', ingredient);    
+  }
+
+  delete(ingredient: Ingredient): Observable<any> {
+    debugger;
+    return this.httpClient.post(environment.ingredientsURL + '/delete', ingredient);    
   }
 
 }

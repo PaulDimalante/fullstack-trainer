@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IngredientService } from '../../services/ingredient.service';
 import { Ingredient } from '../../models/ingredient';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-ingredient-detail',
@@ -10,21 +9,40 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./ingredient-detail.component.css']
   })
   export class IngredientDetailComponent implements OnInit {
-    ingredientFormControl = new FormControl('');
-    ingredient: Ingredient;
+    ingredient: Ingredient = new Ingredient(null, null);
+    id: number;
   
     constructor(private route: ActivatedRoute, private ingredientService: IngredientService) { }
   
     ngOnInit() {
         this.route.paramMap.subscribe((params: ParamMap) => {
-            this.findById(+params.get('id'));
+            this.id = +params.get('id');
+            if(this.id) {
+                this.findById(this.id);
+            } else {
+                this.add();
+            }
           });
     }
 
     private findById(id: number) {
-        debugger;
-        this.ingredientService.findById(id).subscribe((data) => {
-            debugger;
+        this.ingredientService.findById(id).subscribe(data => {
+           this.ingredient = data;
+        });
+    }
+
+    public save(ingredient: Ingredient) {
+        this.ingredientService.save(ingredient).subscribe(data => {
+            this.ingredient = data;
+        });
+    }
+
+    public add() {
+        this.ingredient = new Ingredient(null, '');
+    }
+
+    public delete(ingredient: Ingredient) {
+        this.ingredientService.delete(ingredient).subscribe(data => {
             this.ingredient = data;
         });
     }
