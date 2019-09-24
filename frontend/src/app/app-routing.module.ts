@@ -6,7 +6,7 @@ import { IngredientDetailComponent } from './componets/ingredient-detail/ingredi
 const routes: Routes = [
   {path: 'ingredients/findAll', component: IngredientListComponent, pathMatch: 'full'},
   {path: 'ingredients/findById/:id', component: IngredientDetailComponent, pathMatch: 'full'},
-  {path: '', redirectTo: '/ingredients/findAll', pathMatch: 'full'}
+  {path: '', redirectTo: 'ingredients/findAll', pathMatch: 'full'}
 ];
 
 @NgModule({

@@ -16,7 +16,8 @@ public class IngredientService {
         return true;
     }
     public Ingredient save(Ingredient ingredient) {
-        return repository.save(ingredient);
+        Ingredient response = repository.save(ingredient);
+        return response;
     }
     public boolean delete(Ingredient ingredient) {
         boolean exists = this.existsById(ingredient.getId());

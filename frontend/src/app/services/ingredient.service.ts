@@ -12,6 +12,7 @@ export class IngredientService {
   constructor(private httpClient: HttpClient) { }
 
   findById(id: number): Observable<Ingredient> {
+    debugger;
     return this.httpClient.get<Ingredient>(environment.ingredientsURL + '/findById/' + id);
   }
 

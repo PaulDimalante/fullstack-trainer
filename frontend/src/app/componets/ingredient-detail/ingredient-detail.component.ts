@@ -22,7 +22,9 @@ import { FormControl } from '@angular/forms';
     }
 
     private findById(id: number) {
+        debugger;
         this.ingredientService.findById(id).subscribe((data) => {
+            debugger;
             this.ingredient = data;
         });
     }
